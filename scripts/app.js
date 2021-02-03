@@ -3,6 +3,7 @@ const card = document.querySelector('.card');
 const details = document.querySelector('.details');
 const time = document.querySelector('img.time');
 const icon = document.querySelector('.icon img');
+const forecast = new Forecast();
 
 const updateUI = (data) => {
   // destructure properties
@@ -26,7 +27,7 @@ const updateUI = (data) => {
   time.setAttribute('src', timeSrc);
 
   // remove the d-none class if present
-  if(card.classList.contains('d-none')){
+  if (card.classList.contains('d-none')) {
     card.classList.remove('d-none');
   }
 };
@@ -48,16 +49,16 @@ cityForm.addEventListener('submit', e => {
   cityForm.reset();
 
   // update the ui with new city
-  updateCity(city)
+  forecast.updateCity(city)
     .then(data => updateUI(data))
     .catch(err => console.log(err));
 
-    localStorage.setItem('city', city);
+  localStorage.setItem('location', city);
 
 });
 
-if(localStorage.getItem('city')){
-  updateCity(localStorage.getItem('city'))
+if (localStorage.getItem('location')) {
+  updateCity(localStorage.getItem('location'))
     .then(data => updateUI(data))
     .catch(err => console.log(err));
 }
