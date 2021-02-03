@@ -3,7 +3,6 @@ const card = document.querySelector('.card');
 const details = document.querySelector('.details');
 const time = document.querySelector('img.time');
 const icon = document.querySelector('.icon img');
-const forecast = new Forecast();
 
 const updateUI = (data) => {
   // destructure properties
@@ -49,16 +48,16 @@ cityForm.addEventListener('submit', e => {
   cityForm.reset();
 
   // update the ui with new city
-  forecast.updateCity(city)
+  updateCity(city)
     .then(data => updateUI(data))
     .catch(err => console.log(err));
 
-  localStorage.setItem('location', city);
+  localStorage.setItem('city', city);
 
 });
 
-if (localStorage.getItem('location')) {
-  updateCity(localStorage.getItem('location'))
+if (localStorage.getItem('city')) {
+  updateCity(localStorage.getItem('city'))
     .then(data => updateUI(data))
     .catch(err => console.log(err));
 }
